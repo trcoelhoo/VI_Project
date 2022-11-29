@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+      <script type="text/javascript" src="http://d3js.org/d3.v6.js"></script>
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,7 +31,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
-   <body class="main-layout inner_header about_page">
+   <body onload="barchart()" class="main-layout inner_header about_page">
       <!-- loader  -->
       <div class="loader_bg">
          <div class="loader"><img src="images/loading.gif" alt="#" /></div>
@@ -97,9 +98,7 @@
               
                <div class="col-md-6">
                   <div class="titlepage">
-                      <h3>PROJECTS COMPLETED</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod enim tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                     <a class="read_more" href="#"> Read More</a>
+                      <svg width="1000" height="1000"></svg>
                   </div>
                </div>
                 <div class="col-md-4 offset-md-2">
@@ -211,6 +210,7 @@
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
+      <script src="js/barchart_csv.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
