@@ -29,6 +29,11 @@
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      <style>
+         .listening-rect {
+            fill: transparent;
+            }
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout inner_header blog_page">
@@ -149,9 +154,10 @@
       </div>
       <script type="text/javascript" >
          changeData("recintos");
+         
          function changeData(tipo){
             d3.selectAll("svg").remove();
-            var title = document.getElementById("title").innerHTML = "Gráfico de "+tipo+" de cinema em Portugal desde 2011 até 2021";
+            var title = document.getElementById("title").innerHTML = "Gráfico de "+tipo+" em Portugal desde 2011 até 2021";
             var margin = {top: 10, right: 30, bottom: 30, left: 60},
             width = 660 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
@@ -198,14 +204,41 @@
                      .y(function(d) { return y(d.Recintos) })
                      )
                   //add the dots
-                  svg.selectAll("dot")
+                  var data= data.map(function(d) { return {Anos: d.Anos, Recintos: d.Recintos}; });
+                  svg.selectAll("circle")
                      .data(data)
                      .enter()
                      .append("circle")
-                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cx", function(d) {return x(d.Anos) } )
                      .attr("cy", function(d) { return y(d.Recintos) } )
                      .attr("r", 5)
                      .attr("fill", "red")
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 10)
+                           .attr("fill", "orange")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                        
+                        d3.select(this)
+                           .append("title")
+                           .text("Ano: "+this.__data__.Anos+"\nRecintos: "+this.__data__.Recintos);
+                        console.log(d);
+                     })
+                     .on("mouseout", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 5)
+                           .attr("fill", "red")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                     });
+                     
 
                   //add legend axis
                   svg.append("text")
@@ -220,6 +253,14 @@
                      .attr("dy", "1em")
                      .style("text-anchor", "middle")
                      .text("Número de Recintos");
+
+                  
+
+
+                  
+                  
+
+
                }else if(tipo=="ecras"){
                   var x = d3.scaleLinear()
                      .domain(d3.extent(data, function(d) {  return +d.Anos; }))
@@ -247,8 +288,10 @@
                      .x(function(d) { return x(d.Anos) })
                      .y(function(d) { return y(d.Ecrãs) })
                      )
+                  
                   //add the dots
-                  svg.selectAll("dot")
+                  var data= data.map(function(d) { return {Anos: d.Anos, Ecrãs: d.Ecrãs}; });
+                  svg.selectAll("circle")
                      .data(data)
                      .enter()
                      .append("circle")
@@ -256,6 +299,31 @@
                      .attr("cy", function(d) { return y(d.Ecrãs) } )
                      .attr("r", 5)
                      .attr("fill", "red")
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 10)
+                           .attr("fill", "orange")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                        
+                        d3.select(this)
+                           .append("title")
+                           .text("Ano: "+this.__data__.Anos+"\nEcrãs: "+this.__data__.Ecrãs);
+                        console.log(d);
+                     })
+                     .on("mouseout", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 5)
+                           .attr("fill", "red")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                     });
 
                   //add legend axis
                   svg.append("text")
@@ -297,8 +365,10 @@
                      .x(function(d) { return x(d.Anos) })
                      .y(function(d) { return y(d.Espectadores) })
                      )
+                  
                   //add the dots
-                  svg.selectAll("dot")
+                  var data= data.map(function(d) { return {Anos: d.Anos, Espectadores: d.Espectadores}; });
+                  svg.selectAll("circle")
                      .data(data)
                      .enter()
                      .append("circle")
@@ -306,6 +376,31 @@
                      .attr("cy", function(d) { return y(d.Espectadores) } )
                      .attr("r", 5)
                      .attr("fill", "red")
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 10)
+                           .attr("fill", "orange")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                        
+                        d3.select(this)
+                           .append("title")
+                           .text("Ano: "+this.__data__.Anos+"\nEspectadores: "+this.__data__.Espectadores);
+                        console.log(d);
+                     })
+                     .on("mouseout", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 5)
+                           .attr("fill", "red")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                     });
 
                   //add legend axis
                   svg.append("text")
@@ -347,8 +442,10 @@
                      .x(function(d) { return x(d.Anos) })
                      .y(function(d) { return y(d.Sessões) })
                      )
+                  
                   //add the dots
-                  svg.selectAll("dot")
+                  var data= data.map(function(d) { return {Anos: d.Anos, Sessões: d.Sessões}; });
+                  svg.selectAll("circle")
                      .data(data)
                      .enter()
                      .append("circle")
@@ -356,6 +453,31 @@
                      .attr("cy", function(d) { return y(d.Sessões) } )
                      .attr("r", 5)
                      .attr("fill", "red")
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 10)
+                           .attr("fill", "orange")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                        
+                        d3.select(this)
+                           .append("title")
+                           .text("Ano: "+this.__data__.Anos+"\nSessões: "+this.__data__.Sessões);
+                        console.log(d);
+                     })
+                     .on("mouseout", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 5)
+                           .attr("fill", "red")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                     });
 
                   //add legend axis
                   svg.append("text")
@@ -398,8 +520,10 @@
                      .x(function(d) { return x(d.Anos) })
                      .y(function(d) { return y(d.Receitas) })
                      )
+                  
                   //add the dots
-                  svg.selectAll("dot")
+                  var data= data.map(function(d) { return {Anos: d.Anos, Receitas: d.Receitas}; });
+                  svg.selectAll("circle")
                      .data(data)
                      .enter()
                      .append("circle")
@@ -407,6 +531,31 @@
                      .attr("cy", function(d) { return y(d.Receitas) } )
                      .attr("r", 5)
                      .attr("fill", "red")
+                     .attr("stroke", "black")
+                     .attr("stroke-width", 1)
+                     .on("mouseover", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 10)
+                           .attr("fill", "orange")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                        
+                        d3.select(this)
+                           .append("title")
+                           .text("Ano: "+this.__data__.Anos+"\nReceitas: "+this.__data__.Receitas+"€");
+                        console.log(d);
+                     })
+                     .on("mouseout", function(d) {
+                        d3.select(this)
+                           .transition()
+                           .duration(500)
+                           .attr("r", 5)
+                           .attr("fill", "red")
+                           .attr("stroke", "black")
+                           .attr("stroke-width", 1);
+                     });
 
                   //add legend axis
                   svg.append("text")
@@ -420,7 +569,7 @@
                      .attr("x",0 - (height / 2))
                      .attr("dy", "1em")
                      .style("text-anchor", "middle")
-                     .text("Receitas");
+                     .text("Receitas em €");
                }
 
                
@@ -430,6 +579,37 @@
 
                   
             })
+            // Create Event Handlers for mouse
+            function handleMouseOver(d, i) {  // Add interactivity
+               console.log(d);
+
+            // Use D3 to select element, change color and size
+            d3.select(this).attr({
+            fill: "orange",
+            r: radius * 2
+            });
+
+            // Specify where to put label of text
+            svg.append("text").attr({
+               id: "t" + d.x + "-" + d.y + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
+               x: function() { return xScale(d.x) - 30; },
+               y: function() { return yScale(d.y) - 15; }
+            })
+            .text(function() {
+            return [d.x, d.y];  // Value of the text
+            });
+            }
+
+            function handleMouseOut(d, i) {
+            // Use D3 to select element, change color back to normal
+            d3.select(this).attr({
+            fill: "black",
+            r: radius
+            });
+
+            // Select text by id and then remove
+            d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
+            }
          }
       </script>
 
