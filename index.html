@@ -44,6 +44,13 @@
             color: yellow;
             background-color: transparent;
          }
+         .sub_btn {
+            color: #ffe720;
+         }
+         .sub_btn:hover {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            }
       </style>
    </head>
    <!-- body -->
@@ -113,7 +120,7 @@
                      <br>
                      <br>
                      <br>
-                     <h2 id="map-title" style="color: yellow;">Mapa de Portugal</h2>
+                     <h2 id="map-title" style="color: 	#ffe720;">Mapa de Portugal</h2>
                      
                   </div>
                </div>
@@ -122,19 +129,19 @@
             <div class="row d_flex">
                <div class="col-md-3 col-sm-12">
                     <div class="col-md-6">
-                        <button class="sub_btn" onclick="changeMap('2017')">2017</button>
+                        <button class="sub_btn" style="color: black" onclick="changeMap('2017')">2017</button>
                         <br>
                         <br>
-                        <button class="sub_btn" onclick="changeMap('2018')">2018</button>
+                        <button class="sub_btn" style="color: black" onclick="changeMap('2018')">2018</button>
                         <br>
                         <br>
-                        <button class="sub_btn" onclick="changeMap('2019')">2019</button>
+                        <button class="sub_btn" style="color: black" onclick="changeMap('2019')">2019</button>
                         <br>
                         <br>
-                        <button class="sub_btn" onclick="changeMap('2020')">2020</button>
+                        <button class="sub_btn" style="color: black" onclick="changeMap('2020')">2020</button>
                         <br>
                         <br>
-                        <button class="sub_btn" onclick="changeMap('2021')">2021</button>
+                        <button class="sub_btn" style="color: black" onclick="changeMap('2021')">2021</button>
                         <br>
                         <br>
                     </div>
@@ -455,7 +462,7 @@
                   var regionCinemas = data.filter(function(d) {
                      return d.Região;
                   });
-                  console.log(regionCinemas);
+                  
 
                   for (var i=0;i<regionCinemas.length;i++){
                      var regionName = regionCinemas[i].Região;
@@ -547,7 +554,7 @@
                      if(regionName=="Terras de Trás-os-Montes"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Tras");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -560,7 +567,7 @@
                      if(regionName=="Oeste"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-oeste");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -573,7 +580,7 @@
                      if(regionName=="Região de Aveiro"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Aveiro");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -586,7 +593,7 @@
                      if(regionName=="Região de Coimbra"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Coimbra");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -599,7 +606,7 @@
                      if(regionName=="Região de Leiria"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Leiria");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -612,7 +619,7 @@
                      if(regionName=="Viseu Dão Lafões"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Viseu");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -625,7 +632,7 @@
                      if(regionName=="Beira Baixa"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Baixa");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -638,7 +645,7 @@
                      if(regionName=="Médio Tejo"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Tejo");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -651,7 +658,7 @@
                      if(regionName=="Beiras e Serra da Estrela"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Beira");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -664,7 +671,7 @@
                      if(regionName=="Área Metropolitana de Lisboa"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Lisboa");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -677,7 +684,7 @@
                      if(regionName=="Alentejo Litoral"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-ALitoral");
-                        console.log(circle);
+                       
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -690,7 +697,7 @@
                      if(regionName=="Baixo Alentejo"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-baixoA");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -703,7 +710,7 @@
                      if(regionName=="Lezíria do Tejo"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Leziria");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -716,7 +723,7 @@
                      if(regionName=="Alto Alentejo"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-altoA");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -729,7 +736,7 @@
                      if(regionName=="Alentejo Central"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-centralA");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -742,7 +749,7 @@
                      if(regionName=="Algarve"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Algarve");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -755,7 +762,7 @@
                      if(regionName=="Ilha de São Miguel"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-SaoMiguel");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -768,7 +775,7 @@
                      if(regionName=="Ilha Terceira"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Terceira");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -781,7 +788,7 @@
                      if(regionName=="Ilha do Pico"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Pico");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
@@ -794,7 +801,7 @@
                      if(regionName=="Ilha da Madeira"){
                         //get alto minho circle
                         var circle = document.getElementById("PTC-Madeira");
-                        console.log(circle);
+                        
                         //get number of cinemas from the dict where year
                         var regionCinemasyear = regionCinemas[i][year];
                         //set circle radius
