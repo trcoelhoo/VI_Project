@@ -181,7 +181,39 @@
                       title="Norte"
                       id="PT-N"
                       class="region region-n" />
+                     
+                     <circle cx="722" cy="8" r="0" id="PTC-AMinho" class="region region-am" />
+                     <circle cx="715" cy="24" r="0" id="PTC-Cav" class="region region-cav" />
+                     <circle cx="730" cy="25" r="0" id="PTC-Ave" class="region region-ave" />
+                     <circle cx="715" cy="35" r="0" id="PTC-Por" class="region region-por" />
+                     <circle cx="745" cy="18" r="0" id="PTC-Alto" class="region region-alto" />
+                     <circle cx="735" cy="35" r="0" id="PTC-Tamega" class="region region-tam" />
+                     <circle cx="760" cy="35" r="0" id="PTC-Douro" class="region region-dou" />
+                     <circle cx="770" cy="20" r="0" id="PTC-Tras" class="region region-tras" />
+                     <circle cx="697" cy="120" r="0" id="PTC-oeste" class="region region-oeste" />
+                     <circle cx="714" cy="67" r="0" id="PTC-Aveiro" class="region region-aveiro" />
+                     <circle cx="722" cy="81" r="0" id="PTC-Coimbra" class="region region-coimbra" />
+                     <circle cx="710" cy="97" r="0" id="PTC-Leiria" class="region region-leiria" />
+                     <circle cx="737" cy="64" r="0" id="PTC-Viseu" class="region region-viseu" />
+                     <circle cx="755" cy="94" r="0" id="PTC-Baixa" class="region region-baixa" />
+                     <circle cx="730" cy="92" r="0" id="PTC-Tejo" class="region region-tejo" />
+                     <circle cx="762" cy="67" r="0" id="PTC-Beira" class="region region-beira" />
+                     <circle cx="694" cy="140" r="0" id="PTC-Lisboa" class="region region-lisboa" />
+                     <circle cx="715" cy="170" r="0" id="PTC-ALitoral" class="region region-al" />
+                     <circle cx="745" cy="177" r="0" id="PTC-baixoA" class="region region-baixoa" />
+                     <circle cx="715" cy="130" r="0" id="PTC-Leziria" class="region region-leziria" />
+                     <circle cx="750" cy="120" r="0" id="PTC-altoA" class="region region-altoa" />
+                     <circle cx="742" cy="150" r="0" id="PTC-centralA" class="region region-centrala" />
+                     <circle cx="737" cy="207" r="0" id="PTC-Algarve" class="region region-algarve" />
+                     <circle cx="185" cy="180" r="0" id="PTC-SaoMiguel" class="region region-saomiguel" />
+                     <circle cx="128" cy="141" r="0" id="PTC-Terceira" class="region region-terceira" />
+                     <circle cx="97" cy="155" r="0" id="PTC-Pico" class="region region-pico" />
+                     <circle cx="450" cy="376" r="0" id="PTC-Madeira" class="region region-madeira" />
                   </svg>
+                     <!-- create circle for every region-->
+
+
+
                            </div>
                            
                            
@@ -415,31 +447,437 @@
 
             function addCirclesMap(year){
                //remove circles
-               d3.selectAll("circle").remove();
+               
 
                //add circle to the north region
                d3.csv("datasets/Municipios/NUTSIII_recintos.csv").then(function(data) {
                   //get number of cinemas for this region
                   var regionCinemas = data.filter(function(d) {
-                     return d.Região == "Alto Minho";
+                     return d.Região;
                   });
-                  //get number of cinemas from the dict where 2021
-                  var regionCinemasyear = regionCinemas[0][year];
+                  console.log(regionCinemas);
 
-                  //get coordinates of the region
-                  var region = document.getElementById("PT-N");
-                  var regionCoords = region.getBBox();
+                  for (var i=0;i<regionCinemas.length;i++){
+                     var regionName = regionCinemas[i].Região;
+                     if (regionName=="Alto Minho"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-AMinho");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if (regionName=="Cávado"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Cav");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if (regionName=="Ave"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Ave");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Área Metropolitana do Porto"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Por");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Alto Tâmega"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Alto");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Tâmega e Sousa"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Tamega");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Douro"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Douro");
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     
+                     if(regionName=="Terras de Trás-os-Montes"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Tras");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Oeste"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-oeste");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Região de Aveiro"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Aveiro");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Região de Coimbra"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Coimbra");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Região de Leiria"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Leiria");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Viseu Dão Lafões"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Viseu");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Beira Baixa"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Baixa");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Médio Tejo"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Tejo");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Beiras e Serra da Estrela"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Beira");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Área Metropolitana de Lisboa"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Lisboa");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Alentejo Litoral"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-ALitoral");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Baixo Alentejo"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-baixoA");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Lezíria do Tejo"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Leziria");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Alto Alentejo"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-altoA");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Alentejo Central"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-centralA");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Algarve"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Algarve");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear/2);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Ilha de São Miguel"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-SaoMiguel");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Ilha Terceira"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Terceira");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Ilha do Pico"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Pico");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                     if(regionName=="Ilha da Madeira"){
+                        //get alto minho circle
+                        var circle = document.getElementById("PTC-Madeira");
+                        console.log(circle);
+                        //get number of cinemas from the dict where year
+                        var regionCinemasyear = regionCinemas[i][year];
+                        //set circle radius
+                        circle.setAttribute("r", regionCinemasyear);
+                        circle.setAttribute("fill", "black");
+                        circle.setAttribute("opacity", "0.7");
+                        circle.setAttribute("stroke", "black");
+                        circle.setAttribute("stroke-width", "1");
+                     }
+                  }
+                  
+                  //search biggest number of cinemas
+                  /*
+                  var biggestNorth = 0;
+                  var biggestNorthName = "";
+                  var biggestCenter = 0;
+                  var biggestCenterName = "";
+                  var biggestLisbon = 0;
+                  var biggestLisbonName = "";
+                  var biggestAlentejo = 0;
+                  var biggestAlentejoName = "";
+                  var biggestAlgarve = 0;
+                  var biggestAlgarveName = "";
+                  var biggestAçores = 0;
+                  var biggestAçoresName = "";
+                  var biggestMadeira = 0;
+                  var biggestMadeiraName = "";
 
-                  //add circle to the region
-                  var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                  circle.setAttribute("cx", regionCoords.x + regionCoords.width/2);
-                  circle.setAttribute("cy", regionCoords.y + regionCoords.height/2);
-                  circle.setAttribute("r", regionCinemasyear*5);
-                  circle.setAttribute("fill", "black");
-                  circle.setAttribute("stroke", "black");
-                  circle.setAttribute("stroke-width", "1");
-                  circle.setAttribute("opacity", "0.5");
-                  document.getElementById("map").appendChild(circle);
+
+                  for (var i =0; i<regionCinemas.length;i++){
+                     var regioName= regionCinemas[i].Região;
+                     
+                     if (i<8){
+                        
+                        if (regionCinemas[i][year] > biggestNorth){
+                           biggestNorth = regionCinemas[i][year];
+                           biggestNorthName = regioName;
+                        }
+                     }else if(i>=8 && i<16){
+                        
+                        if (regionCinemas[i][year] > biggestCenter){
+                           biggestCenter = regionCinemas[i][year];
+                           biggestCenterName = regioName;
+                        }
+                     }else if(i>=16 && i<17){
+                        
+                        if (regionCinemas[i][year] > biggestLisbon){
+                           biggestLisbon = regionCinemas[i][year];
+                           biggestLisbonName = regioName;
+                        }
+                     }else if(i>=17 && i<22){
+                        
+                        if (regionCinemas[i][year] > biggestAlentejo){
+                           biggestAlentejo = regionCinemas[i][year];
+                           biggestAlentejoName = regioName;
+                        }
+                     }else if(i>=22 && i<23){
+                        if (regionCinemas[i][year] > biggestAlgarve){
+                           biggestAlgarve = regionCinemas[i][year];
+                           biggestAlgarveName = regioName;
+                        }
+                     }else if(i>=23 && i<32){
+                        if (regionCinemas[i][year] > biggestAçores){
+                           biggestAçores = regionCinemas[i][year];
+                           biggestAçoresName = regioName;
+                        }
+                     }else{
+                        
+                        if (regionCinemas[i][year] > biggestMadeira){
+                           biggestMadeira = regionCinemas[i][year];
+                           biggestMadeiraName = regioName;
+                        }
+                     }
+                     
+
+                  }
+                  // set atributtes to the circle
+                  */
+
+
+
+                  //
+
                });
 
 
