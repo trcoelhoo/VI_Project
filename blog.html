@@ -4,6 +4,7 @@
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <script src="http://d3js.org/d3.v6.js"></script>
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -91,31 +92,347 @@
       <!-- blog -->
       <div class="blog">
          <div class="container">
-            <div class="row">
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <figure><img src="images/Blog_img1.png" alt="#"/></figure>
-                     <h3>Seo marking</h3>
-                     <a class="read_more" href="#">Read More</a>
+            
+
+               <div class="blog_box">
+                  <!-- Line chart with data from portugal-->
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="titlepage">
+                           <h3 id="title">Gráfico de recintos de cinema em Portugal desde 2011 até 2021</h3>
+                        
+                        </div>
+                        
+                        
+                     </div>
                   </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <figure><img src="images/Blog_img2.png" alt="#"/></figure>
-                     <h3>Seo marking</h3>
-                     <a class="read_more" href="#">Read More</a>
+                  <div class="row d_flex">
+                     <div class="linechart" id="linechart_material" style="width: 760px; height: 500px;">
+                        
+                     </div>
+                     <div class="col-md-4 col-sm-12">
+                          <div class="col-md-6">
+                     
+                     <!--place where linechart will display after script-->
+                           
+                           <div class="buttons">
+                              <p>Opções:</p>
+                              <button type="button" class="sub_btn" onclick="changeData('recintos')">Recintos</button>
+                              <br>
+                              <br>
+                              <button type="button" class="sub_btn" onclick="changeData('ecras')">Ecrãs</button>
+                              <br>
+                              <br>
+                              <button type="button" class="sub_btn" onclick="changeData('espectadores')">Espectadores</button>
+                              <br> 
+                              <br>
+                              <button type="button" class="sub_btn" onclick="changeData('receitas')">Receitas</button>
+                              <br>
+                              <br>
+                              <button type="button" class="sub_btn" onclick="changeData('sessoes')">Sessões</button>
+                              <br>
+                              <br>
+                           </div>
+                        </div>
+                     </div>
                   </div>
+                  
+                  
+                  
+                  
+
+
                </div>
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <figure><img src="images/Blog_img3.png" alt="#"/></figure>
-                     <h3>Seo marking</h3>
-                     <a class="read_more" href="#">Read More</a>
-                  </div>
-               </div>
+                     
             </div>
          </div>
       </div>
+      <script type="text/javascript" >
+         changeData("recintos");
+         function changeData(tipo){
+            d3.selectAll("svg").remove();
+            var title = document.getElementById("title").innerHTML = "Gráfico de "+tipo+" de cinema em Portugal desde 2011 até 2021";
+            var margin = {top: 10, right: 30, bottom: 30, left: 60},
+            width = 660 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+
+            // append the svg object to the body of the page
+            var svg = d3.select("#linechart_material")
+            .append("svg")
+               .attr("width", width + margin.left + margin.right)
+               .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+               .attr("transform",
+                     "translate(" + margin.left + "," + margin.top + ")")
+              
+               
+            //console.log(svg);
+            var dataCsv= "datasets/Portugal/"+tipo+"_portugal.csv";
+            //get data from csv
+            d3.csv(dataCsv).then(function(data) {
+               if(tipo=="recintos"){
+                  var x = d3.scaleLinear()
+                     .domain([2011, 2021])
+                     .range([ 0, width ]);
+
+                  svg.append("g")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(d3.axisBottom(x));
+                  //console.log(svg);
+
+                  // Add Y axis
+                  var y = d3.scaleLinear()
+                     .domain([d3.min(data, function(d) { return parseInt(d.Recintos); })-5, d3.max(data, function(d) { return parseInt(d.Recintos); })+5])
+                     .range([ height, 0 ]);
+                  svg.append("g")
+                     .call(d3.axisLeft(y));
+
+                  // Add the line
+                  svg.append("path")
+                     .datum(data)
+                     .attr("fill", "none")
+                     .attr("stroke", "steelblue")
+                     .attr("stroke-width", 1.5)
+                     .attr("d", d3.line()
+                     .x(function(d) { return x(d.Anos) })
+                     .y(function(d) { return y(d.Recintos) })
+                     )
+                  //add the dots
+                  svg.selectAll("dot")
+                     .data(data)
+                     .enter()
+                     .append("circle")
+                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cy", function(d) { return y(d.Recintos) } )
+                     .attr("r", 5)
+                     .attr("fill", "red")
+
+                  //add legend axis
+                  svg.append("text")
+                     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                     .style("text-anchor", "middle")
+                     .text("Anos");
+
+                  svg.append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", 0 - margin.left)
+                     .attr("x",0 - (height / 2))
+                     .attr("dy", "1em")
+                     .style("text-anchor", "middle")
+                     .text("Número de Recintos");
+               }else if(tipo=="ecras"){
+                  var x = d3.scaleLinear()
+                     .domain(d3.extent(data, function(d) {  return +d.Anos; }))
+                     .range([ 0, width ]);
+
+                  svg.append("g")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(d3.axisBottom(x));
+                  //console.log(svg);
+
+                  // Add Y axis
+                  var y = d3.scaleLinear()
+                     .domain([d3.min(data, function(d) { return parseInt(d.Ecrãs); })-10, d3.max(data, function(d) { return parseInt(d.Ecrãs); })+10])
+                     .range([ height, 0 ]);
+                  svg.append("g")
+                     .call(d3.axisLeft(y));
+
+                  // Add the line
+                  svg.append("path")
+                     .datum(data)
+                     .attr("fill", "none")
+                     .attr("stroke", "steelblue")
+                     .attr("stroke-width", 1.5)
+                     .attr("d", d3.line()
+                     .x(function(d) { return x(d.Anos) })
+                     .y(function(d) { return y(d.Ecrãs) })
+                     )
+                  //add the dots
+                  svg.selectAll("dot")
+                     .data(data)
+                     .enter()
+                     .append("circle")
+                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cy", function(d) { return y(d.Ecrãs) } )
+                     .attr("r", 5)
+                     .attr("fill", "red")
+
+                  //add legend axis
+                  svg.append("text")
+                     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                     .style("text-anchor", "middle")
+                     .text("Anos");
+
+                  svg.append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", 0 - margin.left)
+                     .attr("x",0 - (height / 2))
+                     .attr("dy", "1em")
+                     .style("text-anchor", "middle")
+                     .text("Número de Ecrãs");
+               }else if(tipo=="espectadores"){
+                  var x = d3.scaleLinear()
+                     .domain(d3.extent(data, function(d) {  return +d.Anos; }))
+                     .range([ 0, width ]);
+
+                  svg.append("g")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(d3.axisBottom(x));
+                  //console.log(svg);
+
+                  // Add Y axis
+                  var y = d3.scaleLinear()
+                     .domain([d3.min(data, function(d) { return parseInt(d.Espectadores); })-1000, d3.max(data, function(d) { return parseInt(d.Espectadores); })+1000])
+                     .range([ height, 0 ]);
+                  svg.append("g")
+                     .call(d3.axisLeft(y));
+
+                  // Add the line
+                  svg.append("path")
+                     .datum(data)
+                     .attr("fill", "none")
+                     .attr("stroke", "steelblue")
+                     .attr("stroke-width", 1.5)
+                     .attr("d", d3.line()
+                     .x(function(d) { return x(d.Anos) })
+                     .y(function(d) { return y(d.Espectadores) })
+                     )
+                  //add the dots
+                  svg.selectAll("dot")
+                     .data(data)
+                     .enter()
+                     .append("circle")
+                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cy", function(d) { return y(d.Espectadores) } )
+                     .attr("r", 5)
+                     .attr("fill", "red")
+
+                  //add legend axis
+                  svg.append("text")
+                     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                     .style("text-anchor", "middle")
+                     .text("Anos");
+
+                  svg.append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", 0 - margin.left)
+                     .attr("x",0 - (height / 2))
+                     .attr("dy", "1em")
+                     .style("text-anchor", "middle")
+                     .text("Número de Espectadores");
+               }else if(tipo=="sessoes"){
+                  var x = d3.scaleLinear()
+                     .domain(d3.extent(data, function(d) {  return +d.Anos; }))
+                     .range([ 0, width ]);
+
+                  svg.append("g")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(d3.axisBottom(x));
+                  //console.log(svg);
+
+                  // Add Y axis
+                  var y = d3.scaleLinear()
+                     .domain([d3.min(data, function(d) { return parseInt(d.Sessões); })-10000, d3.max(data, function(d) { return parseInt(d.Sessões); })+10000])
+                     .range([ height, 0 ]);
+                  svg.append("g")
+                     .call(d3.axisLeft(y));
+
+                  // Add the line
+                  svg.append("path")
+                     .datum(data)
+                     .attr("fill", "none")
+                     .attr("stroke", "steelblue")
+                     .attr("stroke-width", 1.5)
+                     .attr("d", d3.line()
+                     .x(function(d) { return x(d.Anos) })
+                     .y(function(d) { return y(d.Sessões) })
+                     )
+                  //add the dots
+                  svg.selectAll("dot")
+                     .data(data)
+                     .enter()
+                     .append("circle")
+                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cy", function(d) { return y(d.Sessões) } )
+                     .attr("r", 5)
+                     .attr("fill", "red")
+
+                  //add legend axis
+                  svg.append("text")
+                     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                     .style("text-anchor", "middle")
+                     .text("Anos");
+
+                  svg.append("text")
+                     .attr("transform", "rotate(-90)")
+                     
+                     .attr("y", -3 - margin.left)
+                     .attr("x",0 - (height / 2))
+                     .attr("dy", "1em")
+                     .style("text-anchor", "middle")
+                     .text("Número de Sessões");
+               }else{
+                  var x = d3.scaleLinear()
+                     .domain(d3.extent(data, function(d) {  return +d.Anos; }))
+                     .range([ 0, width ]);
+
+                  svg.append("g")
+                     .attr("transform", "translate(0," + height + ")")
+                     .call(d3.axisBottom(x));
+                  //console.log(svg);
+
+                  // Add Y axis
+                  var y = d3.scaleLinear()
+                     .domain([d3.min(data, function(d) { console.log(d);return parseInt(d.Receitas); })-2000, d3.max(data, function(d) { return parseInt(d.Receitas); })+2000])
+                     .range([ height, 0 ]);
+                  svg.append("g")
+                     .call(d3.axisLeft(y));
+
+                  // Add the line
+                  svg.append("path")
+                     .datum(data)
+                     .attr("fill", "none")
+                     .attr("stroke", "steelblue")
+                     .attr("stroke-width", 1.5)
+                     .attr("d", d3.line()
+                     .x(function(d) { return x(d.Anos) })
+                     .y(function(d) { return y(d.Receitas) })
+                     )
+                  //add the dots
+                  svg.selectAll("dot")
+                     .data(data)
+                     .enter()
+                     .append("circle")
+                     .attr("cx", function(d) { return x(d.Anos) } )
+                     .attr("cy", function(d) { return y(d.Receitas) } )
+                     .attr("r", 5)
+                     .attr("fill", "red")
+
+                  //add legend axis
+                  svg.append("text")
+                     .attr("transform", "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                     .style("text-anchor", "middle")
+                     .text("Anos");
+
+                  svg.append("text")
+                     .attr("transform", "rotate(-90)")
+                     .attr("y", 0 - margin.left)
+                     .attr("x",0 - (height / 2))
+                     .attr("dy", "1em")
+                     .style("text-anchor", "middle")
+                     .text("Receitas");
+               }
+
+               
+
+
+               
+
+                  
+            })
+         }
+      </script>
+
       <!-- blog -->
       <!--  footer -->
       <footer>
