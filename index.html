@@ -223,6 +223,11 @@
                </div>
                
             </div>
+            <!--tooltip to show info from area-->
+            <div id="tooltip" class="hidden">
+               <div id="tooltip-title"></div>
+               <div id="tooltip-content"></div>
+            </div>
           </div>
          </div>
 
@@ -231,10 +236,16 @@
       
                      
         <script type="text/javascript">
+            var yearpage=2021;
+            function setYear(year){
+               yearpage=year;
+
+            }
             changeMap('2021')
             function changeMap(year ){
+               setYear(year);
                //change title of map
-               document.getElementById("map-title").innerHTML = "Recintos de Portugal no ano " + year;
+               document.getElementById("map-title").innerHTML = "Recintos em Portugal no ano " + year;
                //increase map size
                //var svg = document.getElementById("svg_map");
                //svg.setAttribute("viewBox", "0 0 1400 600");
@@ -448,6 +459,30 @@
                });
                addCirclesMap(year);
             }
+            function showTooltip(evt, region, number) {
+               var tooltip = document.getElementById("tooltip");
+               tooltip.style.display = "block";
+               //style the tooltip text
+               tooltip.style.color = "white";
+               
+               tooltip.style.fontSize = "12px";
+               tooltip.style.padding = "5px";
+               tooltip.style.borderRadius = "5px";
+               tooltip.style.backgroundColor = "black";
+               tooltip.style.opacity = "0.8";
+               tooltip.style.position = "absolute";
+               tooltip.style.left = evt.clientX + 10 + "px";
+               tooltip.style.top = evt.clientY + 10 + "px";
+               if (number>1){
+                  tooltip.innerHTML = "Em "+ region + " existem " + number + " cinemas"+ " no ano "+ yearpage;
+               }else{
+                  tooltip.innerHTML = "Em "+ region + " existe " + number + " cinema"+ " no ano "+ yearpage;
+               }
+            }
+            function hideTooltip() {
+               var tooltip = document.getElementById("tooltip");
+               tooltip.style.display = "none";
+            }
 
             function addCirclesMap(year){
                //remove circles
@@ -474,6 +509,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Alto Minho', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if (regionName=="Cávado"){
                         //get alto minho circle
@@ -486,6 +523,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Cávado', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if (regionName=="Ave"){
                         //get alto minho circle
@@ -498,6 +537,9 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Ave', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
+                        
                      }
                      if(regionName=="Área Metropolitana do Porto"){
                         //get alto minho circle
@@ -510,6 +552,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Área Metropolitana do Porto', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Alto Tâmega"){
                         //get alto minho circle
@@ -522,6 +566,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Alto Tâmega', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Tâmega e Sousa"){
                         //get alto minho circle
@@ -534,6 +580,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Tâmega e Sousa', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Douro"){
                         //get alto minho circle
@@ -546,6 +594,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Douro', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      
                      if(regionName=="Terras de Trás-os-Montes"){
@@ -560,6 +610,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Terras de Trás-os-Montes', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Oeste"){
                         //get alto minho circle
@@ -573,6 +625,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Oeste', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Região de Aveiro"){
                         //get alto minho circle
@@ -586,6 +640,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Região de Aveiro', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Região de Coimbra"){
                         //get alto minho circle
@@ -599,6 +655,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Região de Coimbra', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Região de Leiria"){
                         //get alto minho circle
@@ -612,6 +670,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Região de Leiria', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Viseu Dão Lafões"){
                         //get alto minho circle
@@ -625,6 +685,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Viseu Dão Lafões', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Beira Baixa"){
                         //get alto minho circle
@@ -638,6 +700,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Beira Baixa', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Médio Tejo"){
                         //get alto minho circle
@@ -651,6 +715,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Médio Tejo', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Beiras e Serra da Estrela"){
                         //get alto minho circle
@@ -664,6 +730,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Beiras e Serra da Estrela', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Área Metropolitana de Lisboa"){
                         //get alto minho circle
@@ -677,6 +745,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Área Metropolitana de Lisboa', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Alentejo Litoral"){
                         //get alto minho circle
@@ -690,6 +760,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Alentejo Litoral', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Baixo Alentejo"){
                         //get alto minho circle
@@ -703,6 +775,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Baixo Alentejo', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Lezíria do Tejo"){
                         //get alto minho circle
@@ -716,6 +790,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Lezíria do Tejo', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Alto Alentejo"){
                         //get alto minho circle
@@ -729,6 +805,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Alto Alentejo', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Alentejo Central"){
                         //get alto minho circle
@@ -742,6 +820,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Alentejo Central', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Algarve"){
                         //get alto minho circle
@@ -755,6 +835,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Algarve', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Ilha de São Miguel"){
                         //get alto minho circle
@@ -768,6 +850,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Ilha de São Miguel', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Ilha Terceira"){
                         //get alto minho circle
@@ -781,6 +865,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Ilha Terceira', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Ilha do Pico"){
                         //get alto minho circle
@@ -794,6 +880,8 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Ilha do Pico', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                      if(regionName=="Ilha da Madeira"){
                         //get alto minho circle
@@ -807,80 +895,11 @@
                         circle.setAttribute("opacity", "0.7");
                         circle.setAttribute("stroke", "black");
                         circle.setAttribute("stroke-width", "1");
+                        circle.setAttribute("onmouseover", "showTooltip(evt, 'Ilha da Madeira', "+regionCinemasyear+")");
+                        circle.setAttribute("onmouseout", "hideTooltip()");
                      }
                   }
                   
-                  //search biggest number of cinemas
-                  /*
-                  var biggestNorth = 0;
-                  var biggestNorthName = "";
-                  var biggestCenter = 0;
-                  var biggestCenterName = "";
-                  var biggestLisbon = 0;
-                  var biggestLisbonName = "";
-                  var biggestAlentejo = 0;
-                  var biggestAlentejoName = "";
-                  var biggestAlgarve = 0;
-                  var biggestAlgarveName = "";
-                  var biggestAçores = 0;
-                  var biggestAçoresName = "";
-                  var biggestMadeira = 0;
-                  var biggestMadeiraName = "";
-
-
-                  for (var i =0; i<regionCinemas.length;i++){
-                     var regioName= regionCinemas[i].Região;
-                     
-                     if (i<8){
-                        
-                        if (regionCinemas[i][year] > biggestNorth){
-                           biggestNorth = regionCinemas[i][year];
-                           biggestNorthName = regioName;
-                        }
-                     }else if(i>=8 && i<16){
-                        
-                        if (regionCinemas[i][year] > biggestCenter){
-                           biggestCenter = regionCinemas[i][year];
-                           biggestCenterName = regioName;
-                        }
-                     }else if(i>=16 && i<17){
-                        
-                        if (regionCinemas[i][year] > biggestLisbon){
-                           biggestLisbon = regionCinemas[i][year];
-                           biggestLisbonName = regioName;
-                        }
-                     }else if(i>=17 && i<22){
-                        
-                        if (regionCinemas[i][year] > biggestAlentejo){
-                           biggestAlentejo = regionCinemas[i][year];
-                           biggestAlentejoName = regioName;
-                        }
-                     }else if(i>=22 && i<23){
-                        if (regionCinemas[i][year] > biggestAlgarve){
-                           biggestAlgarve = regionCinemas[i][year];
-                           biggestAlgarveName = regioName;
-                        }
-                     }else if(i>=23 && i<32){
-                        if (regionCinemas[i][year] > biggestAçores){
-                           biggestAçores = regionCinemas[i][year];
-                           biggestAçoresName = regioName;
-                        }
-                     }else{
-                        
-                        if (regionCinemas[i][year] > biggestMadeira){
-                           biggestMadeira = regionCinemas[i][year];
-                           biggestMadeiraName = regioName;
-                        }
-                     }
-                     
-
-                  }
-                  // set atributtes to the circle
-                  */
-
-
-
-                  //
 
                });
 

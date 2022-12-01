@@ -157,7 +157,17 @@
          
          function changeData(tipo){
             d3.selectAll("svg").remove();
-            var title = document.getElementById("title").innerHTML = "Gráfico de "+tipo+" em Portugal desde 2011 até 2021";
+            if(tipo=="ecras"){
+               document.getElementById("title").innerHTML = "Gráfico de ecrãs de cinema em Portugal desde 2011 até 2021";
+            }
+
+            else if(tipo=="sessoes"){
+               document.getElementById("title").innerHTML = "Gráfico de sessões de cinema em Portugal desde 2011 até 2021";
+            }
+            else{
+               document.getElementById("title").innerHTML = "Gráfico de "+tipo+" em Portugal desde 2011 até 2021";
+            }
+            
             var margin = {top: 10, right: 30, bottom: 30, left: 60},
             width = 660 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
@@ -227,7 +237,7 @@
                         d3.select(this)
                            .append("title")
                            .text("Ano: "+this.__data__.Anos+"\nRecintos: "+this.__data__.Recintos);
-                        console.log(d);
+                        
                      })
                      .on("mouseout", function(d) {
                         d3.select(this)
@@ -313,7 +323,7 @@
                         d3.select(this)
                            .append("title")
                            .text("Ano: "+this.__data__.Anos+"\nEcrãs: "+this.__data__.Ecrãs);
-                        console.log(d);
+                        
                      })
                      .on("mouseout", function(d) {
                         d3.select(this)
@@ -390,7 +400,7 @@
                         d3.select(this)
                            .append("title")
                            .text("Ano: "+this.__data__.Anos+"\nEspectadores: "+this.__data__.Espectadores);
-                        console.log(d);
+                        
                      })
                      .on("mouseout", function(d) {
                         d3.select(this)
@@ -467,7 +477,7 @@
                         d3.select(this)
                            .append("title")
                            .text("Ano: "+this.__data__.Anos+"\nSessões: "+this.__data__.Sessões);
-                        console.log(d);
+                        
                      })
                      .on("mouseout", function(d) {
                         d3.select(this)
@@ -505,7 +515,7 @@
 
                   // Add Y axis
                   var y = d3.scaleLinear()
-                     .domain([d3.min(data, function(d) { console.log(d);return parseInt(d.Receitas); })-2000, d3.max(data, function(d) { return parseInt(d.Receitas); })+2000])
+                     .domain([d3.min(data, function(d) { return parseInt(d.Receitas); })-2000, d3.max(data, function(d) { return parseInt(d.Receitas); })+2000])
                      .range([ height, 0 ]);
                   svg.append("g")
                      .call(d3.axisLeft(y));
@@ -545,7 +555,7 @@
                         d3.select(this)
                            .append("title")
                            .text("Ano: "+this.__data__.Anos+"\nReceitas: "+this.__data__.Receitas+"€");
-                        console.log(d);
+                        
                      })
                      .on("mouseout", function(d) {
                         d3.select(this)
@@ -579,37 +589,7 @@
 
                   
             })
-            // Create Event Handlers for mouse
-            function handleMouseOver(d, i) {  // Add interactivity
-               console.log(d);
-
-            // Use D3 to select element, change color and size
-            d3.select(this).attr({
-            fill: "orange",
-            r: radius * 2
-            });
-
-            // Specify where to put label of text
-            svg.append("text").attr({
-               id: "t" + d.x + "-" + d.y + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
-               x: function() { return xScale(d.x) - 30; },
-               y: function() { return yScale(d.y) - 15; }
-            })
-            .text(function() {
-            return [d.x, d.y];  // Value of the text
-            });
-            }
-
-            function handleMouseOut(d, i) {
-            // Use D3 to select element, change color back to normal
-            d3.select(this).attr({
-            fill: "black",
-            r: radius
-            });
-
-            // Select text by id and then remove
-            d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
-            }
+            
          }
       </script>
 
