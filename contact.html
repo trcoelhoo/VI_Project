@@ -4,6 +4,7 @@
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <script src="http://d3js.org/d3.v6.js"></script>
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -28,6 +29,24 @@
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      <style>
+         .sub_btn {
+         background-color: #ffc45c;
+         border: none;
+         color: black;
+         padding: 5px 16px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+         margin: 4px 2px;
+         cursor: pointer;
+         }
+         .sub_btn:hover {
+         background-color: black;
+         color: white;
+         }
+      </style>
    </head>
    <!-- body -->
    <body class="main-layout inner_header contact_page">
@@ -62,19 +81,13 @@
                                  <a class="nav-link" href="index.html">Home</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="about.html">About</a>
+                                 <a class="nav-link" href="about.html">Regiões</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="service.html">Services</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="blog.html">Blog</a>
+                                 <a class="nav-link" href="blog.html">Portugal</a>
                               </li>
                               <li class="nav-item active">
-                                 <a class="nav-link" href="contact.html">Contact Us</a>
-                              </li>
-                              <li class="nav-item d_none">
-                                 <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                 <a class="nav-link" href="contact.html">Filmes</a>
                               </li>
                            </ul>
                         </div>
@@ -92,7 +105,7 @@
            <div class="row">
               <div class="col-md-12">
                  <div class="titlepage">
-                  <h2>Contact Us</h2>
+                  <h2>Dados filmes</h2>
                  </div>
               </div>
            </div>
@@ -100,38 +113,404 @@
      </div>
 
       <!--  contact -->
-      <div class="contact">
+      <div class="blog">
          <div class="container">
             <div class="row">
-               <div class="col-md-6">
-                  <form id="request" class="main_form">
-                     <div class="row">
-                        <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus1" placeholder="Message" type="type" Message="Name">
-                        </div>
-                        <div class="col-md-12">
-                           <button class="send_btn">Send</button>
-                        </div>
-                     </div>
-                  </form>
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h3 id="title">DonutChart de exibições totais e por país de origem</h3>
+                  
+                  </div>
+                  
+                  
                </div>
-               <div class="col-md-6">
-                  <div class="map">
-                     <figure><img src="images/map_img.png" alt="#"/></figure>
+            </div>
+            <!-- buttons to choose an year beetween 2011 and 2021-->
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <button class="sub_btn" onclick="changeYear(2011)">2011</button>
+                     <button class="sub_btn" onclick="changeYear(2012)">2012</button>
+                     <button class="sub_btn" onclick="changeYear(2013)">2013</button>
+                     <button class="sub_btn" onclick="changeYear(2014)">2014</button>
+                     <button class="sub_btn" onclick="changeYear(2015)">2015</button>
+                     <button class="sub_btn" onclick="changeYear(2016)">2016</button>
+                     <button class="sub_btn" onclick="changeYear(2017)">2017</button>
+                     <button class="sub_btn" onclick="changeYear(2018)">2018</button>
+                     <button class="sub_btn" onclick="changeYear(2019)">2019</button>
+                     <button class="sub_btn" onclick="changeYear(2020)">2020</button>
+                     <button class="sub_btn" onclick="changeYear(2021)">2021</button>
                   </div>
                </div>
             </div>
+
+            <div class="row d_flex">
+               <div class="donutchart" id="donutchart_material" style="width: 860px; height: 600px;">
+               
+            </div>
          </div>
       </div>
+      <script type="text/javascript" >
+         var yearpage = 2021;
+         changeYear(yearpage);
+         function changeYear(year){
+            yearpage = year;
+            //read data from csv
+            d3.csv("datasets/sessoes_mundo.csv").then(function(data) {
+               
+               //filter data by year
+               var data = data.filter(function(d) {
+                  
+                  return d.Anos == year;
+               });
+               
+               //change the title
+               document.getElementById("title").innerHTML = "DonutChart de origem dos filmes exibidos no ano " + year;
+               //draw the donut chart
+               drawDonutChart(data);
+
+               
+            });
+
+         }
+         //draw the donut chart
+         function drawDonutChart(data){
+            d3.selectAll("svg").remove();
+            
+            //define the dimensions and margins of the graph
+            var width = 1190
+               height = 600
+               margin = 40
+
+            // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+            var radius = Math.min(width, height) / 2 - margin
+
+            // append the svg object to the div called 'my_dataviz'
+            var svg = d3.select("#donutchart_material")
+               .append("svg")
+               .attr("width", width)
+               .attr("height", height)
+               .append("g")
+               .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            // set the color scale
+            var color = d3.scaleOrdinal()
+               .domain(data)
+               .range(d3.schemeSet2);
+            var Ano = data.map(function(d) { return d.Anos; })
+            var Total = data.map(function(d) { return d.Total; })
+
+            //get data withou the total and the year
+            for (var i = 0; i < data.length; i++) {
+               delete data[i].Total;
+               delete data[i].Anos;
+            }
+            
+            var data_ready = new Array();
+            for (var i = 0; i < 7; i++) {
+               if(i == 0){
+                  data_ready.push(data[0].Portugal);
+                  
+               }else if(i == 1){
+                  data_ready.push(data[0].França);
+               }else if(i == 2){
+                  data_ready.push(data[0].Espanha);
+               }else if(i == 3){
+                  data_ready.push(data[0].ReinoUnido);
+               }else if(i == 4){
+                  data_ready.push(data[0].EUA);
+               }else if(i == 5){
+                  data_ready.push(data[0].Outros);
+               }else if(i == 6){
+                  data_ready.push(data[0].Coproduções);
+               }
+            }
+            
+            function getName(exibições){
+               year=yearpage;
+               
+               for (var i=0;i<data_ready.length;i++){
+                  if(exibições == data_ready[i].data && i==0){
+                     return exibições + " exibições em Português em " + year;	
+                  }else if(exibições == data_ready[i].data&& i==1){
+                     return exibições + " exibições em Francês em " + year;
+                  }else if(exibições == data_ready[i].data && i==2){
+                     return exibições + " exibições em Espanhol em " + year;
+                  }else if(exibições == data_ready[i].data && i==3){
+                     return exibições + " exibições de filmes Ingleses em " + year;
+                  }else if(exibições == data_ready[i].data && i==4){
+                     return exibições + " exibições de filmes Americanos em " + year;
+                  }else if(exibições == data_ready[i].data && i==5){
+                     return exibições + " exibições de outros países em " + year;
+                  }else if(exibições == data_ready[i].data && i==6){
+                     return exibições + " exibições de coproduções em " + year;
+                  }
+               }
+            }
+            
+            var pie = d3.pie()
+               .value(function(d) { return d; })
+            var data_ready = pie(data_ready)
+
+            // The arc generator
+            var arc = d3.arc()
+               .innerRadius(radius * 0.5)         // This is the size of the donut hole
+               .outerRadius(radius * 0.8)
+            var datasl= ""
+            function setSlice(data){
+               datasl = data;
+            }
+            // Another arc that won't be drawn. Just for labels positioning
+            var outerArc = d3.arc()
+               .innerRadius(radius * 0.9)
+               .outerRadius(radius * 0.9)
+            
+            //display on the middle of the donut chart the total of exibitions
+            svg
+               .append('text')
+               .attr("text-anchor", "middle")
+               .attr('font-size', '1.5em')
+               .text("Total: " + Total);
+
+            // Build the pie chart: add legend and donut chart to the svg
+            var svgs=svg
+            svg
+               .selectAll('allSlices')
+               .data(data_ready)
+               .enter()
+               .append('path')
+               .attr('d', arc)
+               .attr('fill', function(d){ return(color(d.data)) })
+               .attr("stroke", "white")
+               .style("stroke-width", "2px")
+               .style("opacity", 0.7)
+
+               //on mouse click on the slice increase the size of the slice
+               .on("click", function(d) {
+                  //check if the slice is already clicked
+                  if(d3.select(this).style("opacity") == 1){
+                     d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr("transform", "translate(0,0)")
+                        .style("opacity", 0.7)
+                        .style("stroke-width", "2px")
+                        .style("stroke", "white");
+                     //if it is clicked then decrease the size of the slice
+                     d3.select(this)
+                     .style("opacity", 0.7)
+                     svgs.selectAll("polyline").remove()
+                     svgs.selectAll("text").remove()
+                     svg
+                        .append('text')
+                        .attr("text-anchor", "middle")
+                        .attr('font-size', '1.5em')
+                        .text("Total: " + Total);
+                     svg
+                        .selectAll("mylabels")
+                        .data(data_ready)
+                        .enter()
+                        .append("text")
+                        .attr("x", 400 + size*1.2)
+                        .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+                        //fill with the color from the dataset withouth opacity
+                        .style("fill", function(d){ return(color(d.data)) })
+
+                        .text(function(d){
+                           if(d.data == data[0].Portugal){
+                              return "Portugal: " + d.data;
+                           }else if(d.data == data[0].França){
+                              return "França: " + d.data;
+                           }else if(d.data == data[0].Espanha){
+                              return "Espanha: " + d.data;
+                           }else if(d.data == data[0].ReinoUnido){
+                              return "Reino Unido: " + d.data;
+                           }else if(d.data == data[0].EUA){
+                              return "EUA: " + d.data;
+                           }else if(d.data == data[0].Outros){
+                              return "Outros: " + d.data;
+                           }else {
+                              return "Coproduções: " + d.data;
+                           }
+                        })
+                        .attr("text-anchor", "left")
+                        .style("alignment-baseline", "middle")
+                        .style("font-size", "15px")
+                        .style("font-weight", "bold")
+                        .style("opacity", 1)
+                     
+                  }else{
+                     //decrease the size of the other slices
+                     svg
+                     .selectAll("path")
+                     .style("opacity", 0.7)
+                     .attr("transform", "translate(0,0)")
+                     .style("stroke-width", "2px")
+                     .style("stroke", "white");
+                     //remove the labels
+                     svgs.selectAll("polyline").remove()
+                     svgs.selectAll("text").remove()
+                     svg
+                        .append('text')
+                        .attr("text-anchor", "middle")
+                        .attr('font-size', '1.5em')
+                        .text("Total: " + Total);
+                     svg
+                        .selectAll("mylabels")
+                        .data(data_ready)
+                        .enter()
+                        .append("text")
+                        .attr("x", 400 + size*1.2)
+                        .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+                        //fill with the color from the dataset withouth opacity
+                        .style("fill", function(d){ return(color(d.data)) })
+
+                        .text(function(d){
+                           if(d.data == data[0].Portugal){
+                              return "Portugal: " + d.data;
+                           }else if(d.data == data[0].França){
+                              return "França: " + d.data;
+                           }else if(d.data == data[0].Espanha){
+                              return "Espanha: " + d.data;
+                           }else if(d.data == data[0].ReinoUnido){
+                              return "Reino Unido: " + d.data;
+                           }else if(d.data == data[0].EUA){
+                              return "EUA: " + d.data;
+                           }else if(d.data == data[0].Outros){
+                              return "Outros: " + d.data;
+                           }else {
+                              return "Coproduções: " + d.data;
+                           }
+                        })
+                        .attr("text-anchor", "left")
+                        .style("alignment-baseline", "middle")
+                        .style("font-size", "15px")
+                        .style("font-weight", "bold")
+                        .style("opacity", 1)
+
+                     d3.select(this)
+                     .style("opacity", 1)
+                     //increase the size of the slice and take  out of the donut
+
+                     d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr("transform", function(d) {
+                           var _d = arc.centroid(d);
+                           _d[0] *= 0.2;	//multiply by a constant factor
+                           _d[1] *= 0.2;	//multiply by a constant factor
+                           return "translate(" + _d + ")";
+
+                        })
+                        .style("stroke-width", "2px")
+                        .style("stroke", "black");
+
+                     
+                     var slice=this;
+                     //add polyline to the slice
+                     svgs.append("polyline")
+                        .attr("stroke", "black")
+                        .style("fill", "none")
+                        .attr("stroke-width", 1)
+                        .attr("points", function(d) {
+                           d=slice.__data__;
+
+                           var posA = arc.centroid(d) // line insertion in the slice
+                           var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+                           var posC = outerArc.centroid(d); // Label position = almost the same as posB
+                           var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+                           posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                           return [posA, posB, posC]
+                        })
+
+                  //add text to the slice
+                  svgs.append("text")
+                     .attr("dy", ".35em")
+                     .html(function(d) {
+                        d=slice.__data__;
+
+                        var string= getName(d.data);
+                        
+                        return string;
+                     })
+                     .attr("transform", function(d) {
+                        d=slice.__data__;
+                        
+                        var pos = outerArc.centroid(d);
+                        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                        pos[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1);
+                        return 'translate(' + pos + ')';
+                     })
+                     .style('text-anchor', function(d) {
+                        d=slice.__data__;
+                        
+                        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                        return (midangle < Math.PI ? 'start' : 'end')
+                     })
+                     //style the text
+                     .style("font-size", "14px")
+                     
+                     .style("fill", "black")
+
+                     
+                  }
+                  
+                  
+               })
+
+
+
+                  
+
+            // Add legend
+            var size = 20
+            svg
+               .selectAll("mydots")
+               .data(data_ready)
+               .enter()
+               .append("rect")
+               .attr("x", 400)
+               .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+               .attr("width", size)
+               .attr("height", size)
+               .style("fill", function(d){ return color(d.data)})
+
+            // Add legend labels
+            svg
+               .selectAll("mylabels")
+               .data(data_ready)
+               .enter()
+               .append("text")
+               .attr("x", 400 + size*1.2)
+               .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+               .style("fill", function(d){ return color(d.data)})
+               .text(function(d){
+                  if(d.data == data[0].Portugal){
+                     return "Portugal: " + d.data;
+                  }else if(d.data == data[0].França){
+                     return "França: " + d.data;
+                  }else if(d.data == data[0].Espanha){
+                     return "Espanha: " + d.data;
+                  }else if(d.data == data[0].ReinoUnido){
+                     return "Reino Unido: " + d.data;
+                  }else if(d.data == data[0].EUA){
+                     return "EUA: " + d.data;
+                  }else if(d.data == data[0].Outros){
+                     return "Outros: " + d.data;
+                  }else {
+                     return "Coproduções: " + d.data;
+                  }
+               })
+               .attr("text-anchor", "left")
+               .style("alignment-baseline", "middle")
+               .style("font-size", "15px")
+               .style("font-weight", "bold")
+               .style("opacity", 1)
+
+         }
+      </script>
+
+
       <!-- end contact -->
       <!--  footer -->
       <footer>
@@ -141,7 +520,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                      <img class="logo1" src="images/logo1.png" alt="#"/>
                      <ul class="about_us">
-                        <li>dolor sit amet, consectetur<br> magna aliqua. Ut enim ad <br>minim veniam, <br> quisdotempor incididunt r</li>
+                        <li>Todos os dados<br> presentes<br>foram retirados <br> da PORDATA</li>
                      </ul>
                      <ul class="social_icon">
                         <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -180,22 +559,7 @@
                         <li><a href="#">Contact Us</a></li>
                      </ul>
                   </div>
-                  <div class="col-md-8 offset-md-4 ">
-                     <form class="bottom_form">
-                        <h3>Newsletter</h3>
-                        <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
-                        <button class="sub_btn">subscribe</button>
-                     </form>
-                  </div>
-               </div>
-            </div>
-            <div class="copyright">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-10 offset-md-1">
-                        <p>© 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a></p>
-                     </div>
-                  </div>
+                  
                </div>
             </div>
          </div>
