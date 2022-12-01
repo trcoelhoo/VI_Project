@@ -243,16 +243,14 @@
             d3.csv(path).then( function(data) {
                var subgroups = data.columns.slice(1);
                subgroups= getSubarray(subgroups, 2, 6);
-               //console.log(subgroups);
+               //console.log(data);
                var vals=[];
                for (var i=0;i<data.length;i++){
                   vals.push(parseInt(data[i][2017]));
                }
                var anos=['2017','2018','2019','2020','2021'];
-               //console.log(data.columns.slice(1))
-               //console.log(data.length)
-               // Add X axis
-               const x = d3.scaleLinear()
+
+               var x = d3.scaleLinear()
                   .domain([0,d3.max(vals)])
                   .range([ 0, width]);
                svg.append("g")
@@ -262,23 +260,110 @@
                      .attr("transform", "translate(-10,0)rotate(-45)")
                      .style("text-anchor", "end");
                
+                     
                // Y axis
-               const y = d3.scaleBand()
+               var y = d3.scaleBand()
                   .range([ 0, height ])
                   .domain(data.map(d => d.Região))
                   .padding(.1);
                svg.append("g")
                   .call(d3.axisLeft(y));
                
+
+               var ySubgroup = d3.scaleBand()
+                     .domain(subgroups)
+                     .range([0,y.bandwidth()])
+                     .padding([0.05]);
+               
+               var color = d3.scaleOrdinal()
+                  .domain(subgroups)
+                  .range(['#e41a1c','#377eb8','#4daf4a','#69b3a2','#69b4c2']);
                //Bars
-               svg.selectAll("myRect")
+               svg.append("g")
+                  .selectAll("g")
+                  // Enter in data = loop group per group
                   .data(data)
-                  .join("rect")
-                  .attr("x", x(0) )
-                  .attr("y", d => y(d.Região))
-                  .attr("width", d => x(d[2017]))
-                  .attr("height", y.bandwidth())
-                  .attr("fill", "#69b3a2");
+                  .enter()
+                  .append("g")
+                     .attr("transform", function(d) { console.log(d.Região); return "translate(" + y(d.Região) + ",0)"; })
+                  .selectAll("rect")
+                  .data(function(d) { return subgroups.map(function(key) {return {key: key, value: d[key]}; }); })
+                  .enter().append("rect")  
+                     .attr("y", d=>ySubgroup(d.key))
+                     .attr("width", d=>height - x(d.value))
+                     .attr("height", ySubgroup.bandwidth())
+                     .attr("fill", d=>color(d.key));
+               //console.log(data.columns.slice(1))
+               //console.log(data.length)
+               // Add X axis
+
+               // var groups = d3.map(data, function(d){return(d.Região)}).keys()
+
+               // // Add X axis
+               // var x = d3.scaleBand()
+               //       .domain(groups)
+               //       .range([0, width])
+               //       .padding([0.2])
+               // svg.append("g")
+               //    .attr("transform", "translate(0," + height + ")")
+               //    .call(d3.axisBottom(x).tickSize(0));
+
+               // // Add Y axis
+               // var y = d3.scaleLinear()
+               //    .domain([0, d3.max(vals)+vals[0]])
+               //    .range([ height, 0 ]);
+               // svg.append("g")
+               //    .call(d3.axisLeft(y));
+
+               // // Another scale for subgroup position?
+               // var xSubgroup = d3.scaleBand()
+               //    .domain(subgroups)
+               //    .range([0, x.bandwidth()])
+               //    .padding([0.05])
+
+               // // color palette = one color per subgroup
+               // var color = d3.scaleOrdinal()
+               //    .domain(subgroups)
+               //    .range(['#e41a1c','#377eb8','#4daf4a','#69b3a2','#13b4c2']);
+
+               // // Show the bars
+               // svg.append("g")
+               //    .selectAll("g")
+               //    // Enter in data = loop group per group
+               //    .data(data)
+               //    .enter()
+               //    .append("g")
+               //       .attr("transform", function(d) { return "translate(" + x(d.Região) + ",0)"; })
+               //    .selectAll("rect")
+               //    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+               //    .enter().append("rect")
+               //       .attr("x",d=>(d.key))   
+               //    //.attr("y", d => y(d.key))
+               //       .attr("width", d=>y(d.values))
+               //       .attr("height", xSubgroup.bandwidth())
+               //       .attr("fill", function(d) { return color(d.key); });
+                     // .attr("x", function(d) { return xSubgroup(d.value); })
+                     // .attr("y", function(d) { return y(d.Região); })
+                     // .attr("width", xSubgroup.bandwidth())
+                     // .attr("height", function(d) { return x(d.value); })
+                     // .attr("fill", function(d) { return color(d.key); });
+
+               
+               //-----------------------------------------------------------------------------
+
+
+
+               // svg.selectAll("myRect")
+               //    .data(data)
+               //    .join("rect")
+               //    .attr("y", d => y(d.Região))
+               //    .attr("width", function(d){
+               //       //console.log(x(d[2017]));
+               //       console.log(d);
+               //       return x(d);
+               //    })
+               //    .attr("height", y.bandwidth())
+               //    .attr("fill", "#69b3a2");
             
             })
 
