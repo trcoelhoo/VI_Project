@@ -383,9 +383,40 @@
                   .attr("dy", "0.32em")
                   .text(d => d);
 
+               //add title
+               svg.append("text")
+                  .attr("x", (width / 2))             
+                  .attr("y", 0 - (margin.top / 2))
+                  .attr("text-anchor", "middle")  
+                  .style("font-size", "16px") 
+                  .style("text-decoration", "underline")  
+                  .text(getTitle(escolha));
+
+
+
 
             });
                
+         }
+         function getTitle(escolha){
+            if(escolha=="recintos"){
+               return "Número de recintos por região";
+            }
+            else if(escolha=="ecras"){
+               return "Número de ecrãs por região";
+            }
+            else if(escolha=="espectadores"){
+               return "Número de espectadores por região";
+            }
+            else if(escolha=="sessoes"){
+               return "Número de sessões por região";
+            }
+            else if(escolha=="receitas"){
+               return "Receitas por região";
+            }
+            else if (escolha=="lotacao"){
+               return "Lotação por região";
+            }
          }
          
          
@@ -568,12 +599,42 @@
                   .attr("y", 9.5)
                   .attr("dy", "0.32em")
                   .text(d => d);
+
+               // add the title
+               svg.append("text")
+                  .attr("x", (width / 2))
+                  .attr("y", 0 - (margin.top / 2))
+                  .attr("text-anchor", "middle")
+                  .style("font-size", "16px")
+                  .style("text-decoration", "underline")
+                  .text(getTitle(escolha, regiao));
                
 
 
                
                
             });
+
+            function getTitle(escolha,regiao){
+               if (escolha=="recintos"){
+                  return "Número de recintos em "+regiao;
+               }
+               else if (escolha=="ecras"){
+                  return "Número de ecrãs em "+regiao;
+               }else if (escolha=="espectadores"){
+                  return "Número de espectadores em "+regiao;
+               }
+               else if (escolha=="receitas"){
+                  return "Receitas em "+regiao;
+               }
+               else if (escolha=="lotacao"){
+                  return "Lotação em "+regiao;
+               }
+               else if (escolha=="sessoes"){
+                  return "Número de sessões em "+regiao;
+               }
+            }
+               
 
          }
          </script>
