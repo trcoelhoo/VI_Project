@@ -120,11 +120,11 @@
                         
                      </div>
                      <div class="col-md-4 col-sm-12">
-                          <div class="col-md-6">
+                          <div class="col-md-6" style="margin-left:80px; margin-top:-150px;">
                      
                      <!--place where linechart will display after script-->
                            
-                           <div class="buttons">
+                           <div class="buttons" >
                               <p>Opções:</p>
                               <button type="button" class="sub_btn" onclick="changeData('recintos')">Recintos</button>
                               <br>
@@ -172,7 +172,7 @@
                document.getElementById("title").innerHTML = "Gráfico de "+tipo+" em Portugal desde 2011 até 2021";
             }
             
-            var margin = {top: 10, right: 30, bottom: 30, left: 60},
+            var margin = {top: 10, right: 30, bottom: 30, left: 80},
             width = 660 - margin.left - margin.right,
             height = 400 - margin.top - margin.bottom;
 
@@ -424,7 +424,7 @@
 
                   svg.append("text")
                      .attr("transform", "rotate(-90)")
-                     .attr("y", 0 - margin.left)
+                     .attr("y", 0 - margin.left )
                      .attr("x",0 - (height / 2))
                      .attr("dy", "1em")
                      .style("text-anchor", "middle")

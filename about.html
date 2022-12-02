@@ -104,7 +104,7 @@
                      <div id="tooltip"></div>
                   </div>
                </div>
-                <div class="col-md-4 offset-md-2">
+                <div class="col-md-4 offset-md-2" style="margin-left:950px; margin-top:-1050px;">
                   
                       <h3>Opções: </h3>
                   <!--6 buttons to filter the data-->
@@ -247,15 +247,15 @@
             }           
             d3.selectAll("svg").remove();
             // set the dimensions and margins of the graph
-            const margin = {top: 20, right: 30, bottom: 60, left: 180},
-               width = 660 - margin.left - margin.right,
-               height = 600 - margin.top - margin.bottom;
+            const margin = {top: 30, right: 30, bottom: 60, left: 180},
+               width = 760 - margin.left - margin.right,
+               height = 700 - margin.top - margin.bottom;
             
             // append the svg object to the body of the page
             const svg = d3.select("#my_dataviz")
             .append("svg")
-               .attr("width", width + margin.left + margin.right+100)
-               .attr("height", height + margin.top + margin.bottom+100)
+               .attr("width", width + margin.left + margin.right+200)
+               .attr("height", height + margin.top + margin.bottom+200)
             .append("g")
                .attr("transform", `translate(${margin.left}, ${margin.top})`);
             
@@ -268,7 +268,7 @@
                const y = d3.scaleBand()
                   .domain(data.map(d => d.Região))
                   .range([height, 0])
-                  .padding(0.1);
+                  .padding(0.2);
                svg.append("g")
                   .call(d3.axisLeft(y))
                   .selectAll("text")
@@ -436,15 +436,15 @@
             }
             d3.selectAll("svg").remove();
             // set the dimensions and margins of the graph
-            const margin = {top: 20, right: 30, bottom: 60, left: 180},
-               width = 660 - margin.left - margin.right,
-               height = 600 - margin.top - margin.bottom;
+            const margin = {top: 30, right: 30, bottom: 60, left: 180},
+               width = 760 - margin.left - margin.right,
+               height = 700 - margin.top - margin.bottom;
             
             // append the svg object to the body of the page
             const svg = d3.select("#my_dataviz")
             .append("svg")
-               .attr("width", width + margin.left + margin.right+100)
-               .attr("height", height + margin.top + margin.bottom+100)
+               .attr("width", width + margin.left + margin.right+200)
+               .attr("height", height + margin.top + margin.bottom+200)
             .append("g")
                .attr("transform", `translate(${margin.left}, ${margin.top})`);
             
@@ -487,7 +487,7 @@
                const y = d3.scaleBand()
                   .domain(data.map(d => d.Região))
                   .range([height, 0])
-                  .padding(0.1);
+                  .padding(0.2);
                svg.append("g")
                   .call(d3.axisLeft(y))
                   .selectAll("text")
