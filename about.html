@@ -100,6 +100,13 @@
             <div class="row d_flex">
               
                <div class="col-md-6">
+                  <!-- backword arrow-->
+                  <div class="back" id="backButto">
+                     <!-- hidden back button -->
+                     <button class="sub_btn" id="backButton" onclick="previousGraph()" hidden="hidden" >Voltar</button>
+                     
+
+                  </div>
                   <div id="my_dataviz">
                      <div id="tooltip"></div>
                   </div>
@@ -213,6 +220,7 @@
       <!-- end footer -->
       <!-- Javascript files-->
       <script>
+         var escolha = "recintos";
          function getLegend(escolha) {
            if (escolha == "recintos") {
              return "Número de recintos";
@@ -228,10 +236,24 @@
              return "Número de sessões";
            }
          }
+         function previousGraph(){
+            filterSelection(this.escolha);
+         }
+         function setEscolha(escolha){
+             this.escolha = escolha;
+
+         }
          function getSubarray(array, fromIndex, toIndex) {
             return array.slice(fromIndex, toIndex+1);
          }
          function filterSelection(escolha){
+             setEscolha(escolha);
+            //if back button exists,hide it
+            if(document.getElementById("backButton").hidden == false){
+               console.log("back button exists, hiding it");
+               document.getElementById("backButton").hidden = true;
+            }
+            
             if (escolha =='ecras'){
                path= "../datasets/Municipios/NUTSII_Ecras.csv";
             }else if (escolha =='espectadores'){
@@ -333,7 +355,7 @@
                   .enter()
                   .append("rect")
                   .attr("x", d => x(0))
-                  .attr("y", (d, i) => i *13)
+                  .attr("y", (d, i) => i *15)
                   .attr("width", d => x(d.value))
                   .attr("height", y.bandwidth() / 5)
                   //fill with corresponding color for each year
@@ -421,6 +443,10 @@
          
          
          function filterSelectionRegion(escolha,regiao){
+            //if back button hidden, show it
+            
+            //filter the data
+         
             if (escolha =='ecras'){
                path= "../datasets/Municipios/NUTSIII_Ecras.csv";
             }else if (escolha =='espectadores'){
@@ -611,9 +637,15 @@
                
 
 
-               
+            if(document.getElementById("backButton").hidden){
+               console.log("show");
+               document.getElementById("backButton").hidden=false;
+            }
+            // if the button is clicked, show previous graph
+            
                
             });
+
 
             function getTitle(escolha,regiao){
                if (escolha=="recintos"){
