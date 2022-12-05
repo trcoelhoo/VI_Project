@@ -577,7 +577,7 @@
                         
                         d3.select(this)
                            .append("title")
-                           .text("Ano: "+this.__data__.Anos+"\nReceitas: "+this.__data__.Receitas+"€");
+                           .text("Ano: "+this.__data__.Anos+"\nReceitas: "+this.__data__.Receitas+" milhares de €");
                         
                      })
                      .on("mouseout", function(d) {
@@ -602,7 +602,7 @@
                      .attr("x",0 - (height / 2))
                      .attr("dy", "1em")
                      .style("text-anchor", "middle")
-                     .text("Receitas em €");
+                     .text("Receitas em milhares de €");
                }
 
                
