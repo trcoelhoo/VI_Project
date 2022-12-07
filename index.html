@@ -103,14 +103,14 @@
                                  <a class="nav-link" href="index.html">Home</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="about.html">Regiões</a>
+                                 <a class="nav-link" href="regioes.html">Regiões</a>
                               </li>
 
                               <li class="nav-item">
-                                 <a class="nav-link" href="blog.html">Portugal</a>
+                                 <a class="nav-link" href="portugal.html">Portugal</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">Filmes</a>
+                                 <a class="nav-link" href="filmes.html">Filmes</a>
                               </li>
 
 
@@ -140,6 +140,7 @@
                      <br>
                      <br>
                      <h2 id="map-title" style="color: 	#ffc45c;">Mapa de Portugal</h2>
+                     <p style="color: white;"> (Passar rato por cima dos círculos para ver mais informação)</p>
                      
                   </div>
                </div>
@@ -165,9 +166,7 @@
                         <br>
                     </div>
                </div>
-               <div class="map-legend">
-                  <img src="images/legenda.png" alt="legend" />
-              </div>
+               
                <div class="col-md-6">
                   
                   <div id="map">
@@ -266,6 +265,7 @@
                setYear(year);
                //change title of map
                document.getElementById("map-title").innerHTML = "Recintos em Portugal no ano " + year;
+               
                //increase map size
                //var svg = document.getElementById("svg_map");
                //svg.setAttribute("viewBox", "0 0 1400 600");
@@ -478,6 +478,139 @@
                   }
                });
                addCirclesMap(year);
+               //add legend
+               var svg= d3.select("#map").select("svg");
+               
+               
+               //white background for legend
+               svg.append("rect")
+                  .attr("x", 0)
+                  .attr("y", 150)
+                  .attr("width", 125)
+                  .attr("height", 120)
+                  .attr("fill", "#ffffff");
+               svg.append("text")
+                  .attr("x", 5)
+                  .attr("y", 165)
+                  .attr("class", "legendtitle")
+                  .text("Número de cinemas")
+                  .attr("font-size", "10px")
+                  .attr("font-weight", "bold");
+
+
+               svg.append("rect")
+                  .attr("x", 5)
+                  .attr("y", 172)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#FFFFA7")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+               
+
+               //add legend labels
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 180)
+                  .attr("class", "legendlabel")
+                  .text("0-6")
+                  .attr("font-size", "10px");
+
+               svg.append("rect")
+                  .attr("x", 5)
+                  .attr("y", 187)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#ffea00")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+
+               //add legend labels
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 195)
+                  .attr("class", "legendlabel")
+                  .text("6-16")
+                  .attr("font-size", "10px");
+
+               svg.append("rect")
+                  .attr("x", 5)
+                  .attr("y", 202)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#ffa700")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+               
+
+               //add legend labels
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 210)
+                  .attr("class", "legendlabel")
+                  .text("16-26")
+                  .attr("font-size", "10px");
+
+               svg.append("rect")
+                  .attr("x", 5)
+                  .attr("y", 217)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#ff8200")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+
+               //add legend labels
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 225)
+                  .attr("class", "legendlabel")
+                  .text("26-36")
+                  .attr("font-size", "10px");
+
+               svg.append("rect")
+                  .attr("x", 5)
+                  .attr("y", 232)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#ff5600")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+
+               //add legend labels
+
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 240)
+                  .attr("class", "legendlabel")
+                  .text("36-46")
+                  .attr("font-size", "10px");
+
+               svg.append("rect")
+
+                  .attr("x", 5)
+                  .attr("y", 247)
+                  .attr("width", 10)
+                  .attr("height", 10)
+                  .attr("fill", "#ff0000")
+                  .attr("stroke", "#000000")
+                  .attr("stroke-width", "0.5px");
+
+               //add legend labels
+               svg.append("text")
+                  .attr("x", 20)
+                  .attr("y", 255)
+                  .attr("class", "legendlabel")
+                  .text(">46")
+                  .attr("font-size", "10px");
+
+               
+
+
+                  
+               
+
+
             }
             function showTooltip(evt, region, number) {
                var tooltip = document.getElementById("tooltip");
@@ -920,7 +1053,6 @@
                      }
                   }
                   
-
                });
 
 

@@ -87,13 +87,13 @@
                                  <a class="nav-link" href="index.html">Home</a>
                               </li>
                               <li class="nav-item active">
-                                 <a class="nav-link" href="about.html">Regiões</a>
+                                 <a class="nav-link" href="regioes.html">Regiões</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="blog.html">Portugal</a>
+                                 <a class="nav-link" href="portugal.html">Portugal</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="contact.html">Filmes</a>
+                                 <a class="nav-link" href="filmes.html">Filmes</a>
                               </li>
                            </ul>
                         </div>
@@ -406,6 +406,15 @@
 
 
                // add the legend
+               //title legend
+               svg.append("text")
+                  .attr("x", width + 30)
+                  .attr("y", 0)
+                  .attr("text-anchor", "end")
+                  .attr("font-size", "12px")
+                  .attr("font-weight", "bold")
+                  .attr("fill", "black")
+                  .text("Ano");
                const legend = svg.append("g")
                   .attr("font-family", "sans-serif")
                   .attr("font-size", 10)
@@ -627,6 +636,15 @@
                         });
 
                // add the legend
+               //title legend
+               svg.append("text")
+                  .attr("x", width + 30)
+                  .attr("y", 0)
+                  .attr("text-anchor", "end")
+                  .attr("font-size", "12px")
+                  .attr("font-weight", "bold")
+                  .attr("fill", "black")
+                  .text("Ano");
                const legend = svg.append("g")
                   .attr("font-family", "sans-serif")
                   .attr("font-size", 10)

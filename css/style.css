@@ -465,9 +465,9 @@ button {
 
 .read_more {
      font-size: 17px;
-     background-color: transparent;
+     background-color: #ffca56;
      border: #ffca56 solid 2px;
-     color: #ffca56 !important;
+     color: black;
      padding: 13px 0px;
      width: 100%;
      max-width: 190px;
