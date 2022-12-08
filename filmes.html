@@ -303,6 +303,16 @@
                      .style("opacity", 0.7)
                      svgs.selectAll("polyline").remove()
                      svgs.selectAll("text").remove()
+                     //title legend´
+                     svg
+                        .append("text")
+                        .attr("x", 400)
+                        .attr("y", 80)
+                        .text("Origem dos filmes")
+                        .style("font-size", "20px")
+                        .attr("alignment-baseline","middle")
+                        .style("font-weight", "bold")
+                        .style("opacity", 1)
                      svg
                         .append('text')
                         .attr("text-anchor", "middle")
@@ -352,6 +362,16 @@
                      //remove the labels
                      svgs.selectAll("polyline").remove()
                      svgs.selectAll("text").remove()
+                     //title legend´
+                     svg
+                        .append("text")
+                        .attr("x", 400)
+                        .attr("y", 80)
+                        .text("Origem dos filmes")
+                        .style("font-size", "20px")
+                        .attr("alignment-baseline","middle")
+                        .style("font-weight", "bold")
+                        .style("opacity", 1)
                      svg
                         .append('text')
                         .attr("text-anchor", "middle")
