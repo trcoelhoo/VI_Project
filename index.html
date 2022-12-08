@@ -485,22 +485,30 @@
                //white background for legend
                svg.append("rect")
                   .attr("x", 0)
-                  .attr("y", 150)
-                  .attr("width", 113)
-                  .attr("height", 120)
+                  .attr("y", 130)
+                  .attr("width", 123)
+                  .attr("height", 200)
                   .attr("fill", "#ffffff");
                svg.append("text")
                   .attr("x", 5)
-                  .attr("y", 165)
+                  .attr("y", 145)
                   .attr("class", "legendtitle")
                   .text("Número de cinemas")
                   .attr("font-size", "10px")
                   .attr("font-weight", "bold");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 162)
+                  .attr("r", 2)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
 
                svg.append("rect")
                   .attr("x", 5)
-                  .attr("y", 172)
+                  .attr("y", 157)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#FFFFA7")
@@ -510,15 +518,15 @@
 
                //add legend labels
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 180)
+                  .attr("x", 65)
+                  .attr("y", 165)
                   .attr("class", "legendlabel")
                   .text("0-6")
                   .attr("font-size", "10px");
 
                svg.append("rect")
                   .attr("x", 5)
-                  .attr("y", 187)
+                  .attr("y", 181)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#ffea00")
@@ -527,15 +535,23 @@
 
                //add legend labels
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 195)
+                  .attr("x", 65)
+                  .attr("y", 188)
                   .attr("class", "legendlabel")
                   .text("6-16")
                   .attr("font-size", "10px");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 186)
+                  .attr("r", 4)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
                svg.append("rect")
                   .attr("x", 5)
-                  .attr("y", 202)
+                  .attr("y", 205)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#ffa700")
@@ -545,15 +561,23 @@
 
                //add legend labels
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 210)
+                  .attr("x", 65)
+                  .attr("y", 213)
                   .attr("class", "legendlabel")
                   .text("16-26")
                   .attr("font-size", "10px");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 210)
+                  .attr("r", 6)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
                svg.append("rect")
                   .attr("x", 5)
-                  .attr("y", 217)
+                  .attr("y", 229)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#ff8200")
@@ -562,15 +586,23 @@
 
                //add legend labels
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 225)
+                  .attr("x", 65)
+                  .attr("y", 236)
                   .attr("class", "legendlabel")
                   .text("26-36")
                   .attr("font-size", "10px");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 233)
+                  .attr("r", 8)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
                svg.append("rect")
                   .attr("x", 5)
-                  .attr("y", 232)
+                  .attr("y", 253)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#ff5600")
@@ -580,16 +612,24 @@
                //add legend labels
 
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 240)
+                  .attr("x", 65)
+                  .attr("y", 260)
                   .attr("class", "legendlabel")
                   .text("36-46")
                   .attr("font-size", "10px");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 258)
+                  .attr("r", 10)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
                svg.append("rect")
 
                   .attr("x", 5)
-                  .attr("y", 247)
+                  .attr("y", 277)
                   .attr("width", 10)
                   .attr("height", 10)
                   .attr("fill", "#ff0000")
@@ -598,11 +638,19 @@
 
                //add legend labels
                svg.append("text")
-                  .attr("x", 20)
-                  .attr("y", 255)
+                  .attr("x", 65)
+                  .attr("y", 285)
                   .attr("class", "legendlabel")
                   .text(">46")
                   .attr("font-size", "10px");
+               
+               svg.append("circle")
+                  .attr("cx", 34)
+                  .attr("cy", 282)
+                  .attr("r", 12)
+                  .attr("width", 113)
+                  .attr("height", 120)
+                  .attr("fill", "black");
 
                
 
